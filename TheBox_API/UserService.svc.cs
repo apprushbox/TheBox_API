@@ -15,19 +15,19 @@ namespace TheBox_API
         {
             using (TheBoxEntities theBoxEntities = new TheBoxEntities())
             {
-                return theBoxEntities.UserEntities.Select(user => new User
+                return theBoxEntities.UserEntities.Select(u => new User
                 {
-                    ID_User = user.ID_User,
-                    TX_Name = user.TX_Name,
-                    TX_LastName = user.TX_LastName,
-                    TX_Email = user.TX_Email,
-                    TX_PhoneNumber = user.TX_PhoneNumber,
-                    TX_UserName = user.TX_UserName,
-                    TX_Password = user.TX_Password,
-                    BO_Provider = user.BO_Provider,
-                    BO_Active = user.BO_Active,
-                    DT_Register = user.DT_Register,
-                    IM_Image = user.IM_Image
+                    ID_User = u.ID_User,
+                    TX_Name = u.TX_Name,
+                    TX_LastName = u.TX_LastName,
+                    TX_Email = u.TX_Email,
+                    TX_PhoneNumber = u.TX_PhoneNumber,
+                    TX_UserName = u.TX_UserName,
+                    TX_Password = u.TX_Password,
+                    BO_Provider = u.BO_Provider,
+                    BO_Active = u.BO_Active,
+                    DT_Register = u.DT_Register,
+                    IM_Image = u.IM_Image
                 }).ToList();
             }
         }
@@ -37,19 +37,19 @@ namespace TheBox_API
             using (TheBoxEntities theBoxEntities = new TheBoxEntities())
             {
                 long nid = Convert.ToInt64(id);
-                return theBoxEntities.UserEntities.Where(user => user.ID_User == nid).Select(user => new User
+                return theBoxEntities.UserEntities.Where(u => u.ID_User == nid).Select(u => new User
                 {
-                    ID_User = user.ID_User,
-                    TX_Name = user.TX_Name,
-                    TX_LastName = user.TX_LastName,
-                    TX_Email = user.TX_Email,
-                    TX_UserName = user.TX_UserName,
-                    TX_Password = user.TX_Password,
-                    TX_PhoneNumber = user.TX_PhoneNumber,
-                    BO_Provider = user.BO_Provider,
-                    BO_Active = user.BO_Active,
-                    DT_Register = user.DT_Register,
-                    IM_Image = user.IM_Image
+                    ID_User = u.ID_User,
+                    TX_Name = u.TX_Name,
+                    TX_LastName = u.TX_LastName,
+                    TX_Email = u.TX_Email,
+                    TX_UserName = u.TX_UserName,
+                    TX_Password = u.TX_Password,
+                    TX_PhoneNumber = u.TX_PhoneNumber,
+                    BO_Provider = u.BO_Provider,
+                    BO_Active = u.BO_Active,
+                    DT_Register = u.DT_Register,
+                    IM_Image = u.IM_Image
                 }).FirstOrDefault();
             }
         }
@@ -131,7 +131,7 @@ namespace TheBox_API
             using (TheBoxEntities theBoxEntities = new TheBoxEntities())
             {
 
-                return theBoxEntities.UserEntities.Where(u => u.TX_UserName == userName && u.TX_Password == password).Select(u => new User
+                return theBoxEntities.UserEntities.Where(u => u.TX_UserName.Equals(userName) && u.TX_Password.Equals(password)).Select(u => new User
                 {
                     ID_User = u.ID_User,
                     TX_Name = u.TX_Name,

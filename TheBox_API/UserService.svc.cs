@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.ServiceModel;
 using System.Text;
 
@@ -54,7 +58,7 @@ namespace TheBox_API
             }
         }
 
-        public bool Create(User user)
+        public ResponseOperation Create(User user)
         {
             using (TheBoxEntities theBoxEntities = new TheBoxEntities())
             {
@@ -69,16 +73,26 @@ namespace TheBox_API
                     userEntity.TX_PhoneNumber = user.TX_PhoneNumber;
                     userEntity.BO_Active = true;
                     userEntity.BO_Provider = false;
-                    userEntity.DT_Register = DateTime.UtcNow;
+                    userEntity.DT_Register = DateTime.Now;
                     theBoxEntities.UserEntities.Add(userEntity);
                     theBoxEntities.SaveChanges();
-                    return true;
+                    User myUser = FindUser(user.TX_UserName);
+                    MemoryStream stream1 = new MemoryStream();
+                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(User));
+                    ser.WriteObject(stream1, myUser);
+                    stream1.Position = 0;
+                    StreamReader sr = new StreamReader(stream1);
+                    ResponseOperation response = new ResponseOperation(true, sr.ReadToEnd());
+                    return response;
                 }
-                catch
+                catch (DbUpdateException e)
                 {
-
-                    return false;
+                    return new ResponseOperation(false, e.InnerException.InnerException.Message);
                 }
+                //catch (IOException e)
+                //{
+                //    return new ResponseOperation(false, "Error: " + e.Message);
+                //}
             }
         }
 
@@ -126,12 +140,35 @@ namespace TheBox_API
         }
 
 
-        public User LogIn(string userName, string password)
+        public User LogIn(User user)
         {
             using (TheBoxEntities theBoxEntities = new TheBoxEntities())
             {
 
-                return theBoxEntities.UserEntities.Where(u => u.TX_UserName.Equals(userName) && u.TX_Password.Equals(password)).Select(u => new User
+                return theBoxEntities.UserEntities.Where(u => u.TX_UserName.Equals(user.TX_UserName) && u.TX_Password.Equals(user.TX_Password)).Select(u => new User
+                {
+                    ID_User = u.ID_User,
+                    TX_Name = u.TX_Name,
+                    TX_LastName = u.TX_LastName,
+                    TX_Email = u.TX_Email,
+                    TX_UserName = u.TX_UserName,
+                    TX_Password = u.TX_Password,
+                    TX_PhoneNumber = u.TX_PhoneNumber,
+                    BO_Provider = u.BO_Provider,
+                    BO_Active = u.BO_Active,
+                    DT_Register = u.DT_Register,
+                    IM_Image = u.IM_Image
+                }).FirstOrDefault();
+            }
+        }
+
+
+        public User FindUser(string userName)
+        {
+            using (TheBoxEntities theBoxEntities = new TheBoxEntities())
+            {
+
+                return theBoxEntities.UserEntities.Where(u => u.TX_UserName == userName).Select(u => new User
                 {
                     ID_User = u.ID_User,
                     TX_Name = u.TX_Name,

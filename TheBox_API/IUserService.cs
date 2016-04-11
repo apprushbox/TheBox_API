@@ -17,16 +17,20 @@ namespace TheBox_API
         List<User> FindAll();
 
         [OperationContract]
-        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "Find/{id}")]
-        User Find(string id);
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "Find/{id}", RequestFormat = WebMessageFormat.Json)]
+        User Find(string id);        
 
         [OperationContract]
-        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "LogIn/{userName}/{password}")]
-        User LogIn(string userName, string password);
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "FindUser/{userName}")]
+        User FindUser(string userName);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "LogIn", RequestFormat = WebMessageFormat.Json)]
+        User LogIn(User user);
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "Create", RequestFormat = WebMessageFormat.Json)]
-        bool Create(User user);
+        ResponseOperation Create(User user);
 
         [OperationContract]
         [WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json, UriTemplate = "Edit", RequestFormat = WebMessageFormat.Json)]

@@ -1,0 +1,112 @@
+﻿@model TheBoxApp_Web.Product
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NU_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NU_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NU_ShippingCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NU_ShippingCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BO_SpecialOffer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BO_SpecialOffer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IM_Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IM_Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BO_Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BO_Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DT_Register)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DT_Register)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BO_Service)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BO_Service)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductCategory.TX_ProductCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCategory.TX_ProductCategory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Provider.TX_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Provider.TX_Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

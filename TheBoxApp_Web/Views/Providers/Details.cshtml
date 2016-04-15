@@ -1,0 +1,130 @@
+﻿@model TheBoxApp_Web.Provider
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Provider</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_AddressLine1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_AddressLine1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_AddressLine2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_AddressLine2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_StateProvinceRegion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_StateProvinceRegion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_Zip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_Zip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DT_Register)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DT_Register)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BO_Open)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BO_Open)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GE_Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GE_Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NU_Latitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NU_Latitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NU_Longitud)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NU_Longitud)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City.TX_City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City.TX_City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country.TX_CountryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country.TX_CountryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.TX_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.TX_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Provider }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

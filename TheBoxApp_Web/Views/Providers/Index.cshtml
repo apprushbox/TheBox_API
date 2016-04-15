@@ -1,0 +1,111 @@
+﻿@model IEnumerable<TheBoxApp_Web.Provider>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_AddressLine1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_AddressLine2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_StateProvinceRegion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_Zip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DT_Register)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BO_Open)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GE_Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NU_Latitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NU_Longitud)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City.TX_City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country.TX_CountryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.TX_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_AddressLine1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_AddressLine2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_StateProvinceRegion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_Zip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DT_Register)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BO_Open)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GE_Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NU_Latitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NU_Longitud)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City.TX_City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country.TX_CountryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.TX_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Provider }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_Provider }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Provider })
+        </td>
+    </tr>
+}
+
+</table>

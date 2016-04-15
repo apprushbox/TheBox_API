@@ -1,0 +1,87 @@
+﻿@model IEnumerable<TheBoxApp_Web.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BO_Provider)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BO_Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DT_Register)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IM_Image)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BO_Provider)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BO_Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DT_Register)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IM_Image)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_User }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_User }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_User })
+        </td>
+    </tr>
+}
+
+</table>

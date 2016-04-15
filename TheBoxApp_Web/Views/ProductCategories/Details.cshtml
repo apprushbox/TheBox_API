@@ -1,0 +1,42 @@
+﻿@model TheBoxApp_Web.ProductCategory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ProductCategory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_ProductCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_ProductCategory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BO_Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BO_Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DT_Register)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DT_Register)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_ProductCategory }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

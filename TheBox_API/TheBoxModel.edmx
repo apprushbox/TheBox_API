@@ -5,6 +5,73 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TheBoxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aditional">
+          <Key>
+            <PropertyRef Name="ID_Aditional" />
+          </Key>
+          <Property Name="ID_Aditional" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TX_Aditional" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BO_Active" Type="bit" />
+          <Property Name="DT_Register" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID_Product" />
+          </Key>
+          <Property Name="ID_Product" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Provider" Type="bigint" Nullable="false" />
+          <Property Name="ID_ProductCategory" Type="bigint" Nullable="false" />
+          <Property Name="TX_Name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="TX_Description" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="NU_Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="NU_ShippingCost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="BO_SpecialOffer" Type="bit" Nullable="false" />
+          <Property Name="BO_Service" Type="bit" Nullable="false" />
+          <Property Name="IM_Image" Type="image" />
+          <Property Name="BO_Active" Type="bit" />
+          <Property Name="DT_Register" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProductAditional">
+          <Key>
+            <PropertyRef Name="ID_ProductAditional" />
+          </Key>
+          <Property Name="ID_ProductAditional" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Product" Type="bigint" Nullable="false" />
+          <Property Name="ID_Aditional" Type="bigint" Nullable="false" />
+          <Property Name="NU_AditionalCost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="BO_Mandatory" Type="bit" Nullable="false" />
+          <Property Name="BO_Active" Type="bit" Nullable="false" />
+          <Property Name="DT_Register" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="ID_ProductCategory" />
+          </Key>
+          <Property Name="ID_ProductCategory" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TX_ProductCategory" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BO_Active" Type="bit" />
+          <Property Name="DT_Register" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="ID_Provider" />
+          </Key>
+          <Property Name="ID_Provider" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="bigint" Nullable="false" />
+          <Property Name="TX_Name" Type="varchar" MaxLength="50" />
+          <Property Name="TX_AddressLine1" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TX_AddressLine2" Type="varchar" MaxLength="50" />
+          <Property Name="ID_Country" Type="int" Nullable="false" />
+          <Property Name="ID_City" Type="bigint" Nullable="false" />
+          <Property Name="TX_StateProvinceRegion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TX_Zip" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TX_PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DT_Register" Type="datetime" />
+          <Property Name="BO_Open" Type="bit" Nullable="false" />
+          <Property Name="GE_Location" Type="geography" />
+          <Property Name="NU_Latitude" Type="float" />
+          <Property Name="NU_Longitud" Type="float" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID_User" />
@@ -21,8 +88,101 @@
           <Property Name="DT_Register" Type="datetime" />
           <Property Name="IM_Image" Type="image" />
         </EntityType>
+        <Association Name="FK_Product_ProductCategory">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="ID_ProductCategory" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ID_ProductCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Provider">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ID_Provider" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ID_Provider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductAditional_Aditional">
+          <End Role="Aditional" Type="Self.Aditional" Multiplicity="1" />
+          <End Role="ProductAditional" Type="Self.ProductAditional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aditional">
+              <PropertyRef Name="ID_Aditional" />
+            </Principal>
+            <Dependent Role="ProductAditional">
+              <PropertyRef Name="ID_Aditional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductAditional_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductAditional" Type="Self.ProductAditional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID_Product" />
+            </Principal>
+            <Dependent Role="ProductAditional">
+              <PropertyRef Name="ID_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Provider_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Provider" Type="Self.Provider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="Provider">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetProductNamesByText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="text" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_GetProductsByLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="latitud" Type="float" Mode="In" />
+          <Parameter Name="longitud" Type="float" Mode="In" />
+        </Function>
         <EntityContainer Name="TheBoxModelStoreContainer">
+          <EntitySet Name="Aditional" EntityType="Self.Aditional" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductAditional" EntityType="Self.ProductAditional" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provider" EntityType="Self.Provider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Product_ProductCategory" Association="Self.FK_Product_ProductCategory">
+            <End Role="ProductCategory" EntitySet="ProductCategory" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Provider" Association="Self.FK_Product_Provider">
+            <End Role="Provider" EntitySet="Provider" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductAditional_Aditional" Association="Self.FK_ProductAditional_Aditional">
+            <End Role="Aditional" EntitySet="Aditional" />
+            <End Role="ProductAditional" EntitySet="ProductAditional" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductAditional_Product" Association="Self.FK_ProductAditional_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductAditional" EntitySet="ProductAditional" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Provider_User" Association="Self.FK_Provider_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Provider" EntitySet="Provider" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -43,10 +203,180 @@
           <Property Name="BO_Active" Type="Boolean" />
           <Property Name="DT_Register" Type="DateTime" Precision="3" />
           <Property Name="IM_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Providers" Relationship="TheBoxModel.FK_Provider_User" FromRole="UserEntity" ToRole="Provider" />
         </EntityType>
         <EntityContainer Name="TheBoxEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserEntities" EntityType="TheBoxModel.UserEntity" />
+          <EntitySet Name="ProductCategoryEntities" EntityType="TheBoxModel.ProductCategoryEntity" />
+          <EntitySet Name="ProviderEntities" EntityType="TheBoxModel.ProviderEntity" />
+          <AssociationSet Name="FK_Provider_User" Association="TheBoxModel.FK_Provider_User">
+            <End Role="UserEntity" EntitySet="UserEntities" />
+            <End Role="Provider" EntitySet="ProviderEntities" />
+          </AssociationSet>
+          <FunctionImport Name="GetProductNamesByText" ReturnType="Collection(String)">
+          <Parameter Name="text" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="ProductEntities" EntityType="TheBoxModel.ProductEntity" />
+          <AssociationSet Name="FK_Product_ProductCategory" Association="TheBoxModel.FK_Product_ProductCategory">
+            <End Role="ProductCategoryEntity" EntitySet="ProductCategoryEntities" />
+            <End Role="Product" EntitySet="ProductEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Provider" Association="TheBoxModel.FK_Product_Provider">
+            <End Role="ProviderEntity" EntitySet="ProviderEntities" />
+            <End Role="Product" EntitySet="ProductEntities" />
+          </AssociationSet>
+          <EntitySet Name="AditionalEntities" EntityType="TheBoxModel.AditionalEntity" />
+          <EntitySet Name="ProductAditionalEntities" EntityType="TheBoxModel.ProductAditionalEntity" />
+          <AssociationSet Name="FK_ProductAditional_Aditional" Association="TheBoxModel.FK_ProductAditional_Aditional">
+            <End Role="Aditional" EntitySet="AditionalEntities" />
+            <End Role="ProductAditional" EntitySet="ProductAditionalEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductAditional_Product" Association="TheBoxModel.FK_ProductAditional_Product">
+            <End Role="Product" EntitySet="ProductEntities" />
+            <End Role="ProductAditional" EntitySet="ProductAditionalEntities" />
+          </AssociationSet>
+          <FunctionImport Name="SP_GetProductsByLocation" EntitySet="ProductEntities" ReturnType="Collection(TheBoxModel.ProductEntity)">
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="latitud" Mode="In" Type="Double" />
+            <Parameter Name="longitud" Mode="In" Type="Double" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="ProductCategoryEntity">
+          <Key>
+            <PropertyRef Name="ID_ProductCategory" />
+          </Key>
+          <Property Name="ID_ProductCategory" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TX_ProductCategory" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BO_Active" Type="Boolean" />
+          <Property Name="DT_Register" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Products" Relationship="TheBoxModel.FK_Product_ProductCategory" FromRole="ProductCategoryEntity" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProviderEntity">
+          <Key>
+            <PropertyRef Name="ID_Provider" />
+          </Key>
+          <Property Name="ID_Provider" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="Int64" Nullable="false" />
+          <Property Name="TX_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TX_AddressLine1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TX_AddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Country" Type="Int32" Nullable="false" />
+          <Property Name="ID_City" Type="Int64" Nullable="false" />
+          <Property Name="TX_StateProvinceRegion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TX_Zip" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TX_PhoneNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DT_Register" Type="DateTime" Precision="3" />
+          <Property Name="BO_Open" Type="Boolean" Nullable="false" />
+          <Property Name="GE_Location" Type="Geography" />
+          <Property Name="NU_Latitude" Type="Double" />
+          <Property Name="NU_Longitud" Type="Double" />
+          <NavigationProperty Name="User" Relationship="TheBoxModel.FK_Provider_User" FromRole="Provider" ToRole="UserEntity" />
+          <NavigationProperty Name="Products" Relationship="TheBoxModel.FK_Product_Provider" FromRole="ProviderEntity" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Provider_User">
+          <End Type="TheBoxModel.UserEntity" Role="UserEntity" Multiplicity="1" />
+          <End Type="TheBoxModel.ProviderEntity" Role="Provider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserEntity">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="Provider">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProductEntity">
+          <Key>
+            <PropertyRef Name="ID_Product" />
+          </Key>
+          <Property Name="ID_Product" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Provider" Type="Int64" Nullable="false" />
+          <Property Name="ID_ProductCategory" Type="Int64" Nullable="false" />
+          <Property Name="TX_Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TX_Description" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="NU_Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="NU_ShippingCost" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="BO_SpecialOffer" Type="Boolean" Nullable="false" />
+          <Property Name="BO_Service" Type="Boolean" Nullable="false" />
+          <Property Name="IM_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="BO_Active" Type="Boolean" />
+          <Property Name="DT_Register" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ProductCategory" Relationship="TheBoxModel.FK_Product_ProductCategory" FromRole="Product" ToRole="ProductCategoryEntity" />
+          <NavigationProperty Name="Provider" Relationship="TheBoxModel.FK_Product_Provider" FromRole="Product" ToRole="ProviderEntity" />
+          <NavigationProperty Name="ProductAditionals" Relationship="TheBoxModel.FK_ProductAditional_Product" FromRole="Product" ToRole="ProductAditional" />
+        </EntityType>
+        <Association Name="FK_Product_ProductCategory">
+          <End Type="TheBoxModel.ProductCategoryEntity" Role="ProductCategoryEntity" Multiplicity="1" />
+          <End Type="TheBoxModel.ProductEntity" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategoryEntity">
+              <PropertyRef Name="ID_ProductCategory" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ID_ProductCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Provider">
+          <End Type="TheBoxModel.ProviderEntity" Role="ProviderEntity" Multiplicity="1" />
+          <End Type="TheBoxModel.ProductEntity" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProviderEntity">
+              <PropertyRef Name="ID_Provider" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ID_Provider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AditionalEntity">
+          <Key>
+            <PropertyRef Name="ID_Aditional" />
+          </Key>
+          <Property Name="ID_Aditional" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TX_Aditional" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BO_Active" Type="Boolean" />
+          <Property Name="DT_Register" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ProductAditionals" Relationship="TheBoxModel.FK_ProductAditional_Aditional" FromRole="Aditional" ToRole="ProductAditional" />
+        </EntityType>
+        <EntityType Name="ProductAditionalEntity">
+          <Key>
+            <PropertyRef Name="ID_ProductAditional" />
+          </Key>
+          <Property Name="ID_ProductAditional" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Product" Type="Int64" Nullable="false" />
+          <Property Name="ID_Aditional" Type="Int64" Nullable="false" />
+          <Property Name="NU_AditionalCost" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="BO_Mandatory" Type="Boolean" Nullable="false" />
+          <Property Name="BO_Active" Type="Boolean" Nullable="false" />
+          <Property Name="DT_Register" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Aditional" Relationship="TheBoxModel.FK_ProductAditional_Aditional" FromRole="ProductAditional" ToRole="Aditional" />
+          <NavigationProperty Name="Product" Relationship="TheBoxModel.FK_ProductAditional_Product" FromRole="ProductAditional" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_ProductAditional_Aditional">
+          <End Type="TheBoxModel.AditionalEntity" Role="Aditional" Multiplicity="1" />
+          <End Type="TheBoxModel.ProductAditionalEntity" Role="ProductAditional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aditional">
+              <PropertyRef Name="ID_Aditional" />
+            </Principal>
+            <Dependent Role="ProductAditional">
+              <PropertyRef Name="ID_Aditional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductAditional_Product">
+          <End Type="TheBoxModel.ProductEntity" Role="Product" Multiplicity="1" />
+          <End Type="TheBoxModel.ProductAditionalEntity" Role="ProductAditional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID_Product" />
+            </Principal>
+            <Dependent Role="ProductAditional">
+              <PropertyRef Name="ID_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -70,6 +400,80 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ProductCategoryEntities">
+            <EntityTypeMapping TypeName="TheBoxModel.ProductCategoryEntity">
+              <MappingFragment StoreEntitySet="ProductCategory">
+                <ScalarProperty Name="DT_Register" ColumnName="DT_Register" />
+                <ScalarProperty Name="BO_Active" ColumnName="BO_Active" />
+                <ScalarProperty Name="TX_ProductCategory" ColumnName="TX_ProductCategory" />
+                <ScalarProperty Name="ID_ProductCategory" ColumnName="ID_ProductCategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProviderEntities">
+            <EntityTypeMapping TypeName="TheBoxModel.ProviderEntity">
+              <MappingFragment StoreEntitySet="Provider">
+                <ScalarProperty Name="NU_Longitud" ColumnName="NU_Longitud" />
+                <ScalarProperty Name="NU_Latitude" ColumnName="NU_Latitude" />
+                <ScalarProperty Name="GE_Location" ColumnName="GE_Location" />
+                <ScalarProperty Name="BO_Open" ColumnName="BO_Open" />
+                <ScalarProperty Name="DT_Register" ColumnName="DT_Register" />
+                <ScalarProperty Name="TX_PhoneNumber" ColumnName="TX_PhoneNumber" />
+                <ScalarProperty Name="TX_Zip" ColumnName="TX_Zip" />
+                <ScalarProperty Name="TX_StateProvinceRegion" ColumnName="TX_StateProvinceRegion" />
+                <ScalarProperty Name="ID_City" ColumnName="ID_City" />
+                <ScalarProperty Name="ID_Country" ColumnName="ID_Country" />
+                <ScalarProperty Name="TX_AddressLine2" ColumnName="TX_AddressLine2" />
+                <ScalarProperty Name="TX_AddressLine1" ColumnName="TX_AddressLine1" />
+                <ScalarProperty Name="TX_Name" ColumnName="TX_Name" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_Provider" ColumnName="ID_Provider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetProductNamesByText" FunctionName="TheBoxModel.Store.GetProductNamesByText" />
+          <EntitySetMapping Name="ProductEntities">
+            <EntityTypeMapping TypeName="TheBoxModel.ProductEntity">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="DT_Register" ColumnName="DT_Register" />
+                <ScalarProperty Name="BO_Active" ColumnName="BO_Active" />
+                <ScalarProperty Name="IM_Image" ColumnName="IM_Image" />
+                <ScalarProperty Name="BO_Service" ColumnName="BO_Service" />
+                <ScalarProperty Name="BO_SpecialOffer" ColumnName="BO_SpecialOffer" />
+                <ScalarProperty Name="NU_ShippingCost" ColumnName="NU_ShippingCost" />
+                <ScalarProperty Name="NU_Price" ColumnName="NU_Price" />
+                <ScalarProperty Name="TX_Description" ColumnName="TX_Description" />
+                <ScalarProperty Name="TX_Name" ColumnName="TX_Name" />
+                <ScalarProperty Name="ID_ProductCategory" ColumnName="ID_ProductCategory" />
+                <ScalarProperty Name="ID_Provider" ColumnName="ID_Provider" />
+                <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AditionalEntities">
+            <EntityTypeMapping TypeName="TheBoxModel.AditionalEntity">
+              <MappingFragment StoreEntitySet="Aditional">
+                <ScalarProperty Name="DT_Register" ColumnName="DT_Register" />
+                <ScalarProperty Name="BO_Active" ColumnName="BO_Active" />
+                <ScalarProperty Name="TX_Aditional" ColumnName="TX_Aditional" />
+                <ScalarProperty Name="ID_Aditional" ColumnName="ID_Aditional" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductAditionalEntities">
+            <EntityTypeMapping TypeName="TheBoxModel.ProductAditionalEntity">
+              <MappingFragment StoreEntitySet="ProductAditional">
+                <ScalarProperty Name="DT_Register" ColumnName="DT_Register" />
+                <ScalarProperty Name="BO_Active" ColumnName="BO_Active" />
+                <ScalarProperty Name="BO_Mandatory" ColumnName="BO_Mandatory" />
+                <ScalarProperty Name="NU_AditionalCost" ColumnName="NU_AditionalCost" />
+                <ScalarProperty Name="ID_Aditional" ColumnName="ID_Aditional" />
+                <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
+                <ScalarProperty Name="ID_ProductAditional" ColumnName="ID_ProductAditional" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetProductsByLocation" FunctionName="TheBoxModel.Store.SP_GetProductsByLocation" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

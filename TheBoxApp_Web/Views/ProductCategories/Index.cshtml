@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TheBoxApp_Web.ProductCategory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TX_ProductCategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BO_Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DT_Register)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TX_ProductCategory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BO_Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DT_Register)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_ProductCategory }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_ProductCategory }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_ProductCategory })
+        </td>
+    </tr>
+}
+
+</table>

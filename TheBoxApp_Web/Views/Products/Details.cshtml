@@ -1,0 +1,106 @@
+﻿@model TheBoxApp_Web.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NU_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NU_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NU_ShippingCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NU_ShippingCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BO_SpecialOffer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BO_SpecialOffer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IM_Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IM_Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BO_Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BO_Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DT_Register)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DT_Register)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BO_Service)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BO_Service)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductCategory.TX_ProductCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCategory.TX_ProductCategory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Provider.TX_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Provider.TX_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Product }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

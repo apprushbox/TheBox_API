@@ -1,0 +1,98 @@
+﻿@model TheBoxApp_Web.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TX_PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TX_PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BO_Provider)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BO_Provider)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BO_Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BO_Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DT_Register)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DT_Register)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IM_Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IM_Image)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_User }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

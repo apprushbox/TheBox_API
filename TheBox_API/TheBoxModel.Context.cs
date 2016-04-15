@@ -12,6 +12,8 @@ namespace TheBox_API
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class TheBoxEntities : DbContext
     {
@@ -26,5 +28,53 @@ namespace TheBox_API
         }
     
         public virtual DbSet<UserEntity> UserEntities { get; set; }
+        public virtual DbSet<ProductCategoryEntity> ProductCategoryEntities { get; set; }
+        public virtual DbSet<ProviderEntity> ProviderEntities { get; set; }
+        public virtual DbSet<ProductEntity> ProductEntities { get; set; }
+        public virtual DbSet<AditionalEntity> AditionalEntities { get; set; }
+        public virtual DbSet<ProductAditionalEntity> ProductAditionalEntities { get; set; }
+    
+        public virtual ObjectResult<string> GetProductNamesByText(string text)
+        {
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetProductNamesByText", textParameter);
+        }
+    
+        public virtual ObjectResult<ProductEntity> SP_GetProductsByLocation(string text, Nullable<double> latitud, Nullable<double> longitud)
+        {
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var latitudParameter = latitud.HasValue ?
+                new ObjectParameter("latitud", latitud) :
+                new ObjectParameter("latitud", typeof(double));
+    
+            var longitudParameter = longitud.HasValue ?
+                new ObjectParameter("longitud", longitud) :
+                new ObjectParameter("longitud", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductEntity>("SP_GetProductsByLocation", textParameter, latitudParameter, longitudParameter);
+        }
+    
+        public virtual ObjectResult<ProductEntity> SP_GetProductsByLocation(string text, Nullable<double> latitud, Nullable<double> longitud, MergeOption mergeOption)
+        {
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var latitudParameter = latitud.HasValue ?
+                new ObjectParameter("latitud", latitud) :
+                new ObjectParameter("latitud", typeof(double));
+    
+            var longitudParameter = longitud.HasValue ?
+                new ObjectParameter("longitud", longitud) :
+                new ObjectParameter("longitud", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductEntity>("SP_GetProductsByLocation", mergeOption, textParameter, latitudParameter, longitudParameter);
+        }
     }
 }

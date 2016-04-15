@@ -6,6 +6,16 @@
     <edmx:Diagrams>
       <Diagram DiagramId="4eff3e1616b042d589443f9571ca015f" Name="Diagram1">
         <EntityTypeShape EntityType="TheBoxModel.UserEntity" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheBoxModel.ProductCategoryEntity" Width="1.5" PointX="3" PointY="4.625" />
+        <EntityTypeShape EntityType="TheBoxModel.ProviderEntity" Width="1.5" PointX="3" PointY="7.5" />
+        <AssociationConnector Association="TheBoxModel.FK_Provider_User" />
+        <EntityTypeShape EntityType="TheBoxModel.ProductEntity" Width="1.5" PointX="5.25" PointY="6.375" />
+        <AssociationConnector Association="TheBoxModel.FK_Product_ProductCategory" />
+        <AssociationConnector Association="TheBoxModel.FK_Product_Provider" />
+        <EntityTypeShape EntityType="TheBoxModel.AditionalEntity" Width="1.5" PointX="5.25" PointY="3.375" />
+        <EntityTypeShape EntityType="TheBoxModel.ProductAditionalEntity" Width="1.5" PointX="7.5" PointY="7" />
+        <AssociationConnector Association="TheBoxModel.FK_ProductAditional_Aditional" />
+        <AssociationConnector Association="TheBoxModel.FK_ProductAditional_Product" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

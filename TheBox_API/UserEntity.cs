@@ -14,6 +14,12 @@ namespace TheBox_API
     
     public partial class UserEntity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserEntity()
+        {
+            this.Providers = new HashSet<ProviderEntity>();
+        }
+    
         public long ID_User { get; set; }
         public string TX_Name { get; set; }
         public string TX_LastName { get; set; }
@@ -25,5 +31,8 @@ namespace TheBox_API
         public Nullable<bool> BO_Active { get; set; }
         public Nullable<System.DateTime> DT_Register { get; set; }
         public byte[] IM_Image { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProviderEntity> Providers { get; set; }
     }
 }

@@ -7,12 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TheBoxApp_Web
+namespace TheBox_API
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class CreditCard
+    public partial class CreditCardEntity
     {
         public long ID_CreditCard { get; set; }
         public long ID_User { get; set; }
@@ -24,6 +24,6 @@ namespace TheBoxApp_Web
         public Nullable<System.DateTime> DT_Register { get; set; }
         public bool BO_Active { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual UserEntity User { get; set; }
     }
 }

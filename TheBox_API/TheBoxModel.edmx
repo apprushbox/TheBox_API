@@ -14,6 +14,20 @@
           <Property Name="BO_Active" Type="bit" />
           <Property Name="DT_Register" Type="datetime" />
         </EntityType>
+        <EntityType Name="CreditCard">
+          <Key>
+            <PropertyRef Name="ID_CreditCard" />
+          </Key>
+          <Property Name="ID_CreditCard" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="bigint" Nullable="false" />
+          <Property Name="TX_CardNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TX_NameOnCard" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="NU_ExpirationMonth" Type="tinyint" Nullable="false" />
+          <Property Name="NU_ExpirationDay" Type="int" Nullable="false" />
+          <Property Name="BO_Expired" Type="bit" />
+          <Property Name="DT_Register" Type="datetime" />
+          <Property Name="BO_Active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ID_Product" />
@@ -88,6 +102,18 @@
           <Property Name="DT_Register" Type="datetime" />
           <Property Name="IM_Image" Type="image" />
         </EntityType>
+        <Association Name="FK_CreditCard_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CreditCard" Type="Self.CreditCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="CreditCard">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Product_ProductCategory">
           <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -149,20 +175,26 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="GetProductNamesByText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="SP_GetProductsByLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar(max)" Mode="In" />
           <Parameter Name="latitud" Type="float" Mode="In" />
           <Parameter Name="longitud" Type="float" Mode="In" />
+          <Parameter Name="idProvider" Type="bigint" Mode="In" />
         </Function>
         <EntityContainer Name="TheBoxModelStoreContainer">
           <EntitySet Name="Aditional" EntityType="Self.Aditional" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreditCard" EntityType="Self.CreditCard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductAditional" EntityType="Self.ProductAditional" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provider" EntityType="Self.Provider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CreditCard_User" Association="Self.FK_CreditCard_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="CreditCard" EntitySet="CreditCard" />
+          </AssociationSet>
           <AssociationSet Name="FK_Product_ProductCategory" Association="Self.FK_Product_ProductCategory">
             <End Role="ProductCategory" EntitySet="ProductCategory" />
             <End Role="Product" EntitySet="Product" />
@@ -204,6 +236,7 @@
           <Property Name="DT_Register" Type="DateTime" Precision="3" />
           <Property Name="IM_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Providers" Relationship="TheBoxModel.FK_Provider_User" FromRole="UserEntity" ToRole="Provider" />
+          <NavigationProperty Name="CreditCards" Relationship="TheBoxModel.FK_CreditCard_User" FromRole="UserEntity" ToRole="CreditCard" />
         </EntityType>
         <EntityContainer Name="TheBoxEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserEntities" EntityType="TheBoxModel.UserEntity" />
@@ -239,7 +272,13 @@
             <Parameter Name="text" Mode="In" Type="String" />
             <Parameter Name="latitud" Mode="In" Type="Double" />
             <Parameter Name="longitud" Mode="In" Type="Double" />
+            <Parameter Name="idProvider" Mode="In" Type="Int64" />
           </FunctionImport>
+          <EntitySet Name="CreditCardEntities" EntityType="TheBoxModel.CreditCardEntity" />
+          <AssociationSet Name="FK_CreditCard_User" Association="TheBoxModel.FK_CreditCard_User">
+            <End Role="UserEntity" EntitySet="UserEntities" />
+            <End Role="CreditCard" EntitySet="CreditCardEntities" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ProductCategoryEntity">
           <Key>
@@ -377,6 +416,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CreditCardEntity">
+          <Key>
+            <PropertyRef Name="ID_CreditCard" />
+          </Key>
+          <Property Name="ID_CreditCard" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="Int64" Nullable="false" />
+          <Property Name="TX_CardNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TX_NameOnCard" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="NU_ExpirationMonth" Type="Byte" Nullable="false" />
+          <Property Name="NU_ExpirationDay" Type="Int32" Nullable="false" />
+          <Property Name="BO_Expired" Type="Boolean" />
+          <Property Name="DT_Register" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="TheBoxModel.FK_CreditCard_User" FromRole="CreditCard" ToRole="UserEntity" />
+          <Property Name="BO_Active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CreditCard_User">
+          <End Type="TheBoxModel.UserEntity" Role="UserEntity" Multiplicity="1" />
+          <End Type="TheBoxModel.CreditCardEntity" Role="CreditCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserEntity">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="CreditCard">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -474,6 +540,21 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_GetProductsByLocation" FunctionName="TheBoxModel.Store.SP_GetProductsByLocation" />
+          <EntitySetMapping Name="CreditCardEntities">
+            <EntityTypeMapping TypeName="TheBoxModel.CreditCardEntity">
+              <MappingFragment StoreEntitySet="CreditCard">
+                <ScalarProperty Name="BO_Active" ColumnName="BO_Active" />
+                <ScalarProperty Name="DT_Register" ColumnName="DT_Register" />
+                <ScalarProperty Name="BO_Expired" ColumnName="BO_Expired" />
+                <ScalarProperty Name="NU_ExpirationDay" ColumnName="NU_ExpirationDay" />
+                <ScalarProperty Name="NU_ExpirationMonth" ColumnName="NU_ExpirationMonth" />
+                <ScalarProperty Name="TX_NameOnCard" ColumnName="TX_NameOnCard" />
+                <ScalarProperty Name="TX_CardNumber" ColumnName="TX_CardNumber" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_CreditCard" ColumnName="ID_CreditCard" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

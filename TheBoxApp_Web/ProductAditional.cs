@@ -12,18 +12,17 @@ namespace TheBoxApp_Web
     using System;
     using System.Collections.Generic;
     
-    public partial class CreditCard
+    public partial class ProductAditional
     {
-        public long ID_CreditCard { get; set; }
-        public long ID_User { get; set; }
-        public string TX_CardNumber { get; set; }
-        public string TX_NameOnCard { get; set; }
-        public byte NU_ExpirationMonth { get; set; }
-        public int NU_ExpirationDay { get; set; }
-        public Nullable<bool> BO_Expired { get; set; }
-        public Nullable<System.DateTime> DT_Register { get; set; }
+        public long ID_ProductAditional { get; set; }
+        public long ID_Product { get; set; }
+        public long ID_Aditional { get; set; }
+        public decimal NU_AditionalCost { get; set; }
+        public bool BO_Mandatory { get; set; }
         public bool BO_Active { get; set; }
+        public Nullable<System.DateTime> DT_Register { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual Aditional Aditional { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

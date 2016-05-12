@@ -1,8 +1,13 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family:Exo;
 }
-
+@font-face {
+    font-family: Exo;
+    src: url('../fonts/Exo2-Medium.ttf');
+    
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

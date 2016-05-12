@@ -16,6 +16,8 @@
         <EntityTypeShape EntityType="TheBoxModel.ProductAditionalEntity" Width="1.5" PointX="7.5" PointY="7" />
         <AssociationConnector Association="TheBoxModel.FK_ProductAditional_Aditional" />
         <AssociationConnector Association="TheBoxModel.FK_ProductAditional_Product" />
+        <EntityTypeShape EntityType="TheBoxModel.CreditCardEntity" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="TheBoxModel.FK_CreditCard_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

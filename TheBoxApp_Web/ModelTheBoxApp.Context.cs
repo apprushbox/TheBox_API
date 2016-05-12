@@ -37,5 +37,8 @@ namespace TheBoxApp_Web
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<Provider> Providers { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Distance> Distances { get; set; }
+        public virtual DbSet<Aditional> Aditionals { get; set; }
+        public virtual DbSet<ProductAditional> ProductAditionals { get; set; }
     }
 }

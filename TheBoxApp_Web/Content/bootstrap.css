@@ -4501,12 +4501,15 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
-  border-color: #080808;
+  background-color: #fb8f01;
+  border-color: #fb8f01;
 }
 
 .navbar-inverse .navbar-brand {
-  color: #999999;
+  color: #FFFFFF;
+  font-weight:bolder;
+  font-family: 'Titillium Web', sans-serif;
+  font-size:20px;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -4520,7 +4523,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: #999999;
+  color: #000000;
+  font-weight:bold;
+  font-family: 'Titillium Web', sans-serif;
+  font-size:15px;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,

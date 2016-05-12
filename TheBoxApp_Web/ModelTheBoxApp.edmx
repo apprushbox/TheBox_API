@@ -21,6 +21,15 @@
           <Property Name="TX_PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="DT_Register" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="Aditional">
+          <Key>
+            <PropertyRef Name="ID_Aditional" />
+          </Key>
+          <Property Name="ID_Aditional" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TX_Aditional" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BO_Active" Type="bit" />
+          <Property Name="DT_Register" Type="datetime" />
+        </EntityType>
         <EntityType Name="Bill">
           <Key>
             <PropertyRef Name="ID_Bill" />
@@ -72,6 +81,17 @@
           <Property Name="NU_ExpirationDay" Type="int" Nullable="false" />
           <Property Name="BO_Expired" Type="bit" />
           <Property Name="DT_Register" Type="datetime" />
+          <Property Name="BO_Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Distance">
+          <Key>
+            <PropertyRef Name="ID_Distance" />
+          </Key>
+          <Property Name="ID_Distance" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Provider" Type="bigint" Nullable="false" />
+          <Property Name="NU_MinDistance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="NU_MaxDistance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="NU_Time" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -113,6 +133,18 @@
           <Property Name="BO_Service" Type="bit" Nullable="false" />
           <Property Name="IM_Image" Type="image" />
           <Property Name="BO_Active" Type="bit" />
+          <Property Name="DT_Register" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProductAditional">
+          <Key>
+            <PropertyRef Name="ID_ProductAditional" />
+          </Key>
+          <Property Name="ID_ProductAditional" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Product" Type="bigint" Nullable="false" />
+          <Property Name="ID_Aditional" Type="bigint" Nullable="false" />
+          <Property Name="NU_AditionalCost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="BO_Mandatory" Type="bit" Nullable="false" />
+          <Property Name="BO_Active" Type="bit" Nullable="false" />
           <Property Name="DT_Register" Type="datetime" />
         </EntityType>
         <EntityType Name="ProductCategory">
@@ -232,6 +264,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Distance_Provider">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
+          <End Role="Distance" Type="Self.Distance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ID_Provider" />
+            </Principal>
+            <Dependent Role="Distance">
+              <PropertyRef Name="ID_Provider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -280,6 +324,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductAditional_Aditional">
+          <End Role="Aditional" Type="Self.Aditional" Multiplicity="1" />
+          <End Role="ProductAditional" Type="Self.ProductAditional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aditional">
+              <PropertyRef Name="ID_Aditional" />
+            </Principal>
+            <Dependent Role="ProductAditional">
+              <PropertyRef Name="ID_Aditional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductAditional_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductAditional" Type="Self.ProductAditional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID_Product" />
+            </Principal>
+            <Dependent Role="ProductAditional">
+              <PropertyRef Name="ID_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Provider_City">
           <End Role="City" Type="Self.City" Multiplicity="1" />
           <End Role="Provider" Type="Self.Provider" Multiplicity="*" />
@@ -318,14 +386,17 @@
         </Association>
         <EntityContainer Name="Rushbox_v2ModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Aditional" EntityType="Self.Aditional" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BillDetail" EntityType="Self.BillDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CreditCard" EntityType="Self.CreditCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Distance" EntityType="Self.Distance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductAditional" EntityType="Self.ProductAditional" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provider" EntityType="Self.Provider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -353,6 +424,10 @@
             <End Role="User" EntitySet="User" />
             <End Role="CreditCard" EntitySet="CreditCard" />
           </AssociationSet>
+          <AssociationSet Name="FK_Distance_Provider" Association="Self.FK_Distance_Provider">
+            <End Role="Provider" EntitySet="Provider" />
+            <End Role="Distance" EntitySet="Distance" />
+          </AssociationSet>
           <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
             <End Role="User" EntitySet="User" />
             <End Role="Order" EntitySet="Order" />
@@ -368,6 +443,14 @@
           <AssociationSet Name="FK_Product_Provider" Association="Self.FK_Product_Provider">
             <End Role="Provider" EntitySet="Provider" />
             <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductAditional_Aditional" Association="Self.FK_ProductAditional_Aditional">
+            <End Role="Aditional" EntitySet="Aditional" />
+            <End Role="ProductAditional" EntitySet="ProductAditional" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductAditional_Product" Association="Self.FK_ProductAditional_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductAditional" EntitySet="ProductAditional" />
           </AssociationSet>
           <AssociationSet Name="FK_Provider_City" Association="Self.FK_Provider_City">
             <End Role="City" EntitySet="City" />
@@ -464,6 +547,7 @@
           <Property Name="BO_Expired" Type="Boolean" />
           <Property Name="DT_Register" Type="DateTime" Precision="3" />
           <NavigationProperty Name="User" Relationship="Self.FK_CreditCard_User" FromRole="CreditCard" ToRole="User" />
+          <Property Name="BO_Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -511,6 +595,7 @@
           <NavigationProperty Name="ProductCategory" Relationship="Self.FK_Product_ProductCategory" FromRole="Product" ToRole="ProductCategory" />
           <NavigationProperty Name="Provider" Relationship="Self.FK_Product_Provider" FromRole="Product" ToRole="Provider" />
           <Property Name="BO_Service" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ProductAditionals" Relationship="Rushbox_v2Model.FK_ProductAditional_Product" FromRole="Product" ToRole="ProductAditional" />
         </EntityType>
         <EntityType Name="ProductCategory">
           <Key>
@@ -545,6 +630,7 @@
           <NavigationProperty Name="Country" Relationship="Self.FK_Provider_Country" FromRole="Provider" ToRole="Country" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Provider" FromRole="Provider" ToRole="Product" />
           <NavigationProperty Name="User" Relationship="Self.FK_Provider_User" FromRole="Provider" ToRole="User" />
+          <NavigationProperty Name="Distances" Relationship="Rushbox_v2Model.FK_Distance_Provider" FromRole="Provider" ToRole="Distance" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -788,7 +874,93 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Provider" EntitySet="Providers" />
           </AssociationSet>
+          <EntitySet Name="Distances" EntityType="Rushbox_v2Model.Distance" />
+          <AssociationSet Name="FK_Distance_Provider" Association="Rushbox_v2Model.FK_Distance_Provider">
+            <End Role="Provider" EntitySet="Providers" />
+            <End Role="Distance" EntitySet="Distances" />
+          </AssociationSet>
+          <EntitySet Name="Aditionals" EntityType="Rushbox_v2Model.Aditional" />
+          <EntitySet Name="ProductAditionals" EntityType="Rushbox_v2Model.ProductAditional" />
+          <AssociationSet Name="FK_ProductAditional_Aditional" Association="Rushbox_v2Model.FK_ProductAditional_Aditional">
+            <End Role="Aditional" EntitySet="Aditionals" />
+            <End Role="ProductAditional" EntitySet="ProductAditionals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductAditional_Product" Association="Rushbox_v2Model.FK_ProductAditional_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductAditional" EntitySet="ProductAditionals" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Distance">
+          <Key>
+            <PropertyRef Name="ID_Distance" />
+          </Key>
+          <Property Name="ID_Distance" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Provider" Type="Int64" Nullable="false" />
+          <Property Name="NU_MinDistance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="NU_MaxDistance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="NU_Time" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Provider" Relationship="Rushbox_v2Model.FK_Distance_Provider" FromRole="Distance" ToRole="Provider" />
+        </EntityType>
+        <Association Name="FK_Distance_Provider">
+          <End Type="Rushbox_v2Model.Provider" Role="Provider" Multiplicity="1" />
+          <End Type="Rushbox_v2Model.Distance" Role="Distance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ID_Provider" />
+            </Principal>
+            <Dependent Role="Distance">
+              <PropertyRef Name="ID_Provider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Aditional">
+          <Key>
+            <PropertyRef Name="ID_Aditional" />
+          </Key>
+          <Property Name="ID_Aditional" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TX_Aditional" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BO_Active" Type="Boolean" />
+          <Property Name="DT_Register" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ProductAditionals" Relationship="Rushbox_v2Model.FK_ProductAditional_Aditional" FromRole="Aditional" ToRole="ProductAditional" />
+        </EntityType>
+        <EntityType Name="ProductAditional">
+          <Key>
+            <PropertyRef Name="ID_ProductAditional" />
+          </Key>
+          <Property Name="ID_ProductAditional" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Product" Type="Int64" Nullable="false" />
+          <Property Name="ID_Aditional" Type="Int64" Nullable="false" />
+          <Property Name="NU_AditionalCost" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="BO_Mandatory" Type="Boolean" Nullable="false" />
+          <Property Name="BO_Active" Type="Boolean" Nullable="false" />
+          <Property Name="DT_Register" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Aditional" Relationship="Rushbox_v2Model.FK_ProductAditional_Aditional" FromRole="ProductAditional" ToRole="Aditional" />
+          <NavigationProperty Name="Product" Relationship="Rushbox_v2Model.FK_ProductAditional_Product" FromRole="ProductAditional" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_ProductAditional_Aditional">
+          <End Type="Rushbox_v2Model.Aditional" Role="Aditional" Multiplicity="1" />
+          <End Type="Rushbox_v2Model.ProductAditional" Role="ProductAditional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aditional">
+              <PropertyRef Name="ID_Aditional" />
+            </Principal>
+            <Dependent Role="ProductAditional">
+              <PropertyRef Name="ID_Aditional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductAditional_Product">
+          <End Type="Rushbox_v2Model.Product" Role="Product" Multiplicity="1" />
+          <End Type="Rushbox_v2Model.ProductAditional" Role="ProductAditional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID_Product" />
+            </Principal>
+            <Dependent Role="ProductAditional">
+              <PropertyRef Name="ID_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -858,6 +1030,7 @@
           <EntitySetMapping Name="CreditCards">
             <EntityTypeMapping TypeName="Rushbox_v2Model.CreditCard">
               <MappingFragment StoreEntitySet="CreditCard">
+                <ScalarProperty Name="BO_Active" ColumnName="BO_Active" />
                 <ScalarProperty Name="ID_CreditCard" ColumnName="ID_CreditCard" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="TX_CardNumber" ColumnName="TX_CardNumber" />
@@ -959,6 +1132,40 @@
                 <ScalarProperty Name="BO_Active" ColumnName="BO_Active" />
                 <ScalarProperty Name="DT_Register" ColumnName="DT_Register" />
                 <ScalarProperty Name="IM_Image" ColumnName="IM_Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Distances">
+            <EntityTypeMapping TypeName="Rushbox_v2Model.Distance">
+              <MappingFragment StoreEntitySet="Distance">
+                <ScalarProperty Name="NU_Time" ColumnName="NU_Time" />
+                <ScalarProperty Name="NU_MaxDistance" ColumnName="NU_MaxDistance" />
+                <ScalarProperty Name="NU_MinDistance" ColumnName="NU_MinDistance" />
+                <ScalarProperty Name="ID_Provider" ColumnName="ID_Provider" />
+                <ScalarProperty Name="ID_Distance" ColumnName="ID_Distance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Aditionals">
+            <EntityTypeMapping TypeName="Rushbox_v2Model.Aditional">
+              <MappingFragment StoreEntitySet="Aditional">
+                <ScalarProperty Name="DT_Register" ColumnName="DT_Register" />
+                <ScalarProperty Name="BO_Active" ColumnName="BO_Active" />
+                <ScalarProperty Name="TX_Aditional" ColumnName="TX_Aditional" />
+                <ScalarProperty Name="ID_Aditional" ColumnName="ID_Aditional" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductAditionals">
+            <EntityTypeMapping TypeName="Rushbox_v2Model.ProductAditional">
+              <MappingFragment StoreEntitySet="ProductAditional">
+                <ScalarProperty Name="DT_Register" ColumnName="DT_Register" />
+                <ScalarProperty Name="BO_Active" ColumnName="BO_Active" />
+                <ScalarProperty Name="BO_Mandatory" ColumnName="BO_Mandatory" />
+                <ScalarProperty Name="NU_AditionalCost" ColumnName="NU_AditionalCost" />
+                <ScalarProperty Name="ID_Aditional" ColumnName="ID_Aditional" />
+                <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
+                <ScalarProperty Name="ID_ProductAditional" ColumnName="ID_ProductAditional" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

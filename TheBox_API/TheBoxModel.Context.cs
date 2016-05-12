@@ -33,6 +33,7 @@ namespace TheBox_API
         public virtual DbSet<ProductEntity> ProductEntities { get; set; }
         public virtual DbSet<AditionalEntity> AditionalEntities { get; set; }
         public virtual DbSet<ProductAditionalEntity> ProductAditionalEntities { get; set; }
+        public virtual DbSet<CreditCardEntity> CreditCardEntities { get; set; }
     
         public virtual ObjectResult<string> GetProductNamesByText(string text)
         {
@@ -43,7 +44,7 @@ namespace TheBox_API
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetProductNamesByText", textParameter);
         }
     
-        public virtual ObjectResult<ProductEntity> SP_GetProductsByLocation(string text, Nullable<double> latitud, Nullable<double> longitud)
+        public virtual ObjectResult<ProductEntity> SP_GetProductsByLocation(string text, Nullable<double> latitud, Nullable<double> longitud, Nullable<long> idProvider)
         {
             var textParameter = text != null ?
                 new ObjectParameter("text", text) :
@@ -57,10 +58,14 @@ namespace TheBox_API
                 new ObjectParameter("longitud", longitud) :
                 new ObjectParameter("longitud", typeof(double));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductEntity>("SP_GetProductsByLocation", textParameter, latitudParameter, longitudParameter);
+            var idProviderParameter = idProvider.HasValue ?
+                new ObjectParameter("idProvider", idProvider) :
+                new ObjectParameter("idProvider", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductEntity>("SP_GetProductsByLocation", textParameter, latitudParameter, longitudParameter, idProviderParameter);
         }
     
-        public virtual ObjectResult<ProductEntity> SP_GetProductsByLocation(string text, Nullable<double> latitud, Nullable<double> longitud, MergeOption mergeOption)
+        public virtual ObjectResult<ProductEntity> SP_GetProductsByLocation(string text, Nullable<double> latitud, Nullable<double> longitud, Nullable<long> idProvider, MergeOption mergeOption)
         {
             var textParameter = text != null ?
                 new ObjectParameter("text", text) :
@@ -74,7 +79,11 @@ namespace TheBox_API
                 new ObjectParameter("longitud", longitud) :
                 new ObjectParameter("longitud", typeof(double));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductEntity>("SP_GetProductsByLocation", mergeOption, textParameter, latitudParameter, longitudParameter);
+            var idProviderParameter = idProvider.HasValue ?
+                new ObjectParameter("idProvider", idProvider) :
+                new ObjectParameter("idProvider", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductEntity>("SP_GetProductsByLocation", mergeOption, textParameter, latitudParameter, longitudParameter, idProviderParameter);
         }
     }
 }

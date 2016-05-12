@@ -1,0 +1,66 @@
+﻿@model TheBoxApp_Web.ProductAditional
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ProductAditional</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NU_AditionalCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NU_AditionalCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BO_Mandatory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BO_Mandatory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BO_Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BO_Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DT_Register)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DT_Register)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aditional.TX_Aditional)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aditional.TX_Aditional)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.TX_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.TX_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_ProductAditional }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

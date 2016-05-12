@@ -18,6 +18,7 @@ namespace TheBoxApp_Web
         public Provider()
         {
             this.Products = new HashSet<Product>();
+            this.Distances = new HashSet<Distance>();
         }
     
         public long ID_Provider { get; set; }
@@ -41,5 +42,7 @@ namespace TheBoxApp_Web
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Distance> Distances { get; set; }
     }
 }

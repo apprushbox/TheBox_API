@@ -158,6 +158,9 @@
     <Compile Include="Address.cs">
       <DependentUpon>ModelTheBoxApp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Aditional.cs">
+      <DependentUpon>ModelTheBoxApp.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -173,10 +176,13 @@
       <DependentUpon>ModelTheBoxApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AditionalsController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
+    <Compile Include="Controllers\DistancesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductAditionalsController.cs" />
     <Compile Include="Controllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProvidersController.cs" />
@@ -188,6 +194,9 @@
       <DependentUpon>ModelTheBoxApp.tt</DependentUpon>
     </Compile>
     <Compile Include="DecimalModelBinder.cs" />
+    <Compile Include="Distance.cs">
+      <DependentUpon>ModelTheBoxApp.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,6 +227,9 @@
     <Compile Include="Product.cs">
       <DependentUpon>ModelTheBoxApp.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductAditional.cs">
+      <DependentUpon>ModelTheBoxApp.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProductCategory.cs">
       <DependentUpon>ModelTheBoxApp.tt</DependentUpon>
     </Compile>
@@ -233,6 +245,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\box.png" />
+    <Content Include="Content\Images\Rushbox.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -256,6 +270,8 @@
       <DependentUpon>ModelTheBoxApp.edmx</DependentUpon>
       <LastGenOutput>ModelTheBoxApp.cs</LastGenOutput>
     </Content>
+    <Content Include="fonts\Exo2-Medium.ttf" />
+    <None Include="Properties\PublishProfiles\APP_WEB_SMARTERASP.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -267,6 +283,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -333,6 +350,21 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Distances\Create.cshtml" />
+    <Content Include="Views\Distances\Delete.cshtml" />
+    <Content Include="Views\Distances\Details.cshtml" />
+    <Content Include="Views\Distances\Edit.cshtml" />
+    <Content Include="Views\Distances\Index.cshtml" />
+    <Content Include="Views\Aditionals\Create.cshtml" />
+    <Content Include="Views\Aditionals\Delete.cshtml" />
+    <Content Include="Views\Aditionals\Details.cshtml" />
+    <Content Include="Views\Aditionals\Edit.cshtml" />
+    <Content Include="Views\Aditionals\Index.cshtml" />
+    <Content Include="Views\ProductAditionals\Create.cshtml" />
+    <Content Include="Views\ProductAditionals\Delete.cshtml" />
+    <Content Include="Views\ProductAditionals\Details.cshtml" />
+    <Content Include="Views\ProductAditionals\Edit.cshtml" />
+    <Content Include="Views\ProductAditionals\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

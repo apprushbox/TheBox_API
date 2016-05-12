@@ -10,8 +10,10 @@ namespace TheBox_API
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IUserService" in both code and config file together.
     [ServiceContract]
-    public interface IUserService
+    public interface IServiceUser
     {
+        
+        
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "FindAll")]
         List<User> FindAll();

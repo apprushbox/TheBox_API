@@ -30,6 +30,12 @@
         <AssociationConnector Association="Rushbox_v2Model.FK_Product_ProductCategory" ManuallyRouted="false" />
         <AssociationConnector Association="Rushbox_v2Model.FK_Product_Provider" ManuallyRouted="false" />
         <AssociationConnector Association="Rushbox_v2Model.FK_Provider_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Rushbox_v2Model.Distance" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="Rushbox_v2Model.FK_Distance_Provider" />
+        <EntityTypeShape EntityType="Rushbox_v2Model.Aditional" Width="1.5" PointX="8.25" PointY="3" />
+        <EntityTypeShape EntityType="Rushbox_v2Model.ProductAditional" Width="1.5" PointX="10.5" PointY="6.625" />
+        <AssociationConnector Association="Rushbox_v2Model.FK_ProductAditional_Aditional" />
+        <AssociationConnector Association="Rushbox_v2Model.FK_ProductAditional_Product" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

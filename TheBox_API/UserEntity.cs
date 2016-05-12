@@ -18,6 +18,7 @@ namespace TheBox_API
         public UserEntity()
         {
             this.Providers = new HashSet<ProviderEntity>();
+            this.CreditCards = new HashSet<CreditCardEntity>();
         }
     
         public long ID_User { get; set; }
@@ -34,5 +35,7 @@ namespace TheBox_API
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProviderEntity> Providers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CreditCardEntity> CreditCards { get; set; }
     }
 }

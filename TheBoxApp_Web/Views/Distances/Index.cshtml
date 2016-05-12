@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TheBoxApp_Web.Distance>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NU_MinDistance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NU_MaxDistance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NU_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Provider.TX_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NU_MinDistance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NU_MaxDistance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NU_Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Provider.TX_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Distance }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_Distance }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Distance })
+        </td>
+    </tr>
+}
+
+</table>

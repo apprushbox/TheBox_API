@@ -12,29 +12,19 @@ namespace TheBoxApp_Web
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Aditional
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public Aditional()
         {
             this.ProductAditionals = new HashSet<ProductAditional>();
         }
     
-        public long ID_Product { get; set; }
-        public long ID_Provider { get; set; }
-        public long ID_ProductCategory { get; set; }
-        public string TX_Name { get; set; }
-        public string TX_Description { get; set; }
-        public decimal NU_Price { get; set; }
-        public decimal NU_ShippingCost { get; set; }
-        public bool BO_SpecialOffer { get; set; }
-        public byte[] IM_Image { get; set; }
+        public long ID_Aditional { get; set; }
+        public string TX_Aditional { get; set; }
         public Nullable<bool> BO_Active { get; set; }
         public Nullable<System.DateTime> DT_Register { get; set; }
-        public bool BO_Service { get; set; }
     
-        public virtual ProductCategory ProductCategory { get; set; }
-        public virtual Provider Provider { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductAditional> ProductAditionals { get; set; }
     }

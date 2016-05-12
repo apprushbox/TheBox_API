@@ -11,7 +11,7 @@ namespace TheBox_API
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IProductService" in both code and config file together.
     [ServiceContract]
-    public interface IProductService
+    public interface IServiceProduct
     {
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "FindAll")]
@@ -40,5 +40,9 @@ namespace TheBox_API
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "FindProductByLocation", RequestFormat = WebMessageFormat.Json)]
         ProductProvider FindProductByLocation(RequestTheBoxApp requestTheBoxApp);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "FindSpecialOffersByLocation", RequestFormat = WebMessageFormat.Json)]
+        ProductProvider FindSpecialOffersByLocation(RequestTheBoxApp requestTheBoxApp);
     }
 }
